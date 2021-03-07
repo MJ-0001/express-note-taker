@@ -1,4 +1,4 @@
-// Dependencies
+// Initialise dependencies
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -23,16 +23,16 @@ app.get('/notes', (req, res) => res.sendFile(path.join(main, 'notes.html')));
 // Setup route for JSON API
 app.get('/api/notes', (req, res) => res.sendFile(path.join(__dirname, '/db/db.json')));
 
-// New note added to JSON 
-addStringArr = (arr, req) => {
-  fs.writeFile('./db/db.json', arr, err => {
+// Add a note to the JSON file
+addStringArr = (obj, req) => {
+  fs.writeFile('./db/db.json', obj, err => {
     req === 'post' ? console.log('Note Added!') : console.log('An error occurred' + err);
   });
 }
 
-// Note removed from JSON 
-remStringArr = (arr, req) => {
-  fs.writeFile('./db/db.json', arr, err => {
+// Remove a note from the JSON file
+remStringArr = (obj, req) => {
+  fs.writeFile('./db/db.json', obj, err => {
     req === 'delete' ? console.log('Note Deleted!') : console.log('An error occurred' + err);
   });
 }
@@ -61,7 +61,7 @@ app.delete('/api/notes/:id', (req, res) => {
   const noteId = req.params.id;
   const notesArr = require('./db/db.json');
 
-  // Iterate through the notes array
+  // Iterate through the notes array and delete selected note
   for (let i = 0; i < notesArr.length; i++){
     if (noteId === notesArr[i].id) {
       notesArr.splice(i, 1);
@@ -74,15 +74,6 @@ app.delete('/api/notes/:id', (req, res) => {
   remStringArr(stringArr, 'delete');
   return res.json(notesArr);
 })
-
-
-
-
-
-
-
-
-
 
 // Initialise server
 app.listen(PORT, () => console.log(`app listening on PORT ${PORT}`));
