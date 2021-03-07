@@ -11,6 +11,8 @@
 - [License](#license)
 ---
 ## Screenshots of deployed app:
+(https://peaceful-brook-44834.herokuapp.com/)
+### Homepage
 ![screenshot](./images/screenshot1.png)
 ### Add new notes with ease!
 ![screenshot](./images/screenshot2.png)
